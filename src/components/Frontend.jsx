@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from 'react'
-// import Item from './Item'
+import Item from './Item'
 
 const Frontend = () => {
 
-	const [dados, setDados] = useState([]) // const [countries, setCountries] = useState([]);
-	const [search, setSearch] = useState(""); // const [search, setSearch] = useState("");
-	const [FilteredNames, setFilteredNames] = useState([]); // const [filteredCountries, setFilteredCountries] = useState([]);
-
-	// const [countries, setCountries] = useState([]);
-	// const [search, setSearch] = useState("");
-	// const [filteredCountries, setFilteredCountries] = useState([]);
+	const [dados, setDados] = useState([]) 
+	const [SearchName, setSearchName] = useState(""); 
+	const [FilteredNames, setFilteredNames] = useState([]); 
 
 	useEffect(() => {
-		fetch('http://localhost:3000/random/200')
-		// fetch('https://restcountries.eu/rest/v2/all')
+		fetch('http://localhost:3000/random/300')
+
 		.then(resposta => resposta.json()) 
 		.then(dados =>  {
-			console.log(dados)
+			// console.log(dados)
 			const dado = dados.map(d => ({
 				nome: d.name,
 				endereco: d.address,
@@ -27,76 +23,104 @@ const Frontend = () => {
 				descricao: d.description
 			}))
 
-			setDados(dado)
-			console.log(dado)
-			// setCountries(dados)
-			 
+			setDados(dado)	 
 		})
 	}, [])
 
 	useEffect(() => {
-		setFilteredNames(
-
-			dados.filter((d) =>
-				d.nome.toLowerCase().includes(search.toLowerCase())
+		console.log(dados)
+			console.log("nome")
+			setFilteredNames(
+				dados.filter((d) =>
+				
+					d.nome.toLowerCase().includes(SearchName.toLowerCase())				
+				)
 			)
-		)
-	}, [search, dados])
+	}, [SearchName, dados])
 
 	return (
-		// <div className="App">
-		// 	<h1>Countries Lists</h1>
-		// 	<input
-		// 		type="text"
-		// 		placeholder="Search Countries"
-		// 		onChange={(e) => setSearch(e.target.value)}
-		// 	/>
-		// 	{filteredCountries.map((country, idx) => (
-		// 		<CountryDetail key={idx} {...country} />
-		// 	))}
-		// </div>
 		<>
 			<div>
-				<input
-					type="text"
-					placeholder="Search names"
-					onChange={(e) => setSearch(e.target.value)}
-				/>
+				<div>
+					<h4>Filtro </h4>
+					<input
+						type="text"
+						placeholder="Filtrar por nome"
+						onChange={(e) => setSearchName(e.target.value)}
+					/>
+				</div>
 			</div>
 			<div>
 				<ul>
 					{FilteredNames.map((d, index) => (
-					
-						<li key={index}>
-							<div>
-								<strong>Nome: </strong>
-								{d.nome}		
-							</div>
-							<div>
-								<strong>Logradouro: </strong>
-								{d.endereco}
-							</div>
-							<div>
-								<strong>Cidade: </strong>
-								{d.cidade}
-							</div>
-							<div>
-								<strong>Estado: </strong>
-								{d.estado}
-							</div>
-							<div>
-								<strong>Pais: </strong>
-								{d.pais}
-							</div>
-							<div>
-								<strong>Website: </strong>
-								{d.site}
-							</div>
-							<div>
-								<strong>Descrição: </strong>
-								{d.descricao}
-							</div>
-						</li>					
+						
+						// <li key={index}>
+						// 	<div>
+						// 		<strong>Nome: </strong>
+						// 		<p>
+						// 			{d.nome}
+						// 		</p>
+										
+						// 	</div>
+						// 	<div>
+						// 		<strong>Logradouro: </strong>
+						// 		<p>
+						// 			{d.endereco}
+						// 		</p>
+								
+						// 	</div>
+						// 	<div>
+						// 		<strong>Cidade: </strong>
+						// 		<p>
+						// 			{d.cidade}
+						// 		</p>
+								
+						// 	</div>
+						// 	<div>
+						// 		<strong>Estado: </strong>
+						// 		<p>
+						// 			{d.estado}
+						// 		</p>
+								
+						// 	</div>
+						// 	<div>
+						// 		<strong>Pais: </strong>
+						// 		<p>
+						// 			{d.pais}
+						// 		</p>
+								
+						// 	</div>
+						// 	{d.site &&
+						// 		<div>
+						// 			<strong>Website: </strong>
+						// 			<p>
+						// 				{d.site}
+						// 			</p>
+									
+						// 		</div>
+						// 	}
+						// 	{d.descricao &&
+						// 		<div>
+						// 			<strong>Descrição: </strong>
+						// 			<p>
+						// 				{d.descricao}
+						// 			</p>
+												
+						// 		</div>
+								
+						// 	}
+						// </li>	
+						<Item 
+							
+							index={index} 
+							nome={d.nome} 
+							endereco={d.endereco}
+							cidade={d.cidade}
+							estado={d.estado}
+							pais={d.pais}
+							site={d.site}
+							descricao={d.descricao}	
+						/>				
 					))}
 
 				</ul>
@@ -106,17 +130,4 @@ const Frontend = () => {
 	)
 }
 
-// const CountryDetail = (props) => {
-// 	const { name, flag } = props;
-
-// 	return (
-// 		<>
-// 			<p>
-// 				<img src={flag} alt={name} style={{ width: "20px", height: "20px" }} />
-// 			</p>
-// 			<p>{name}</p>
-// 		</>
-// 	);
-// };
 export default Frontend;
-// state: d.estado Pennsylvania
